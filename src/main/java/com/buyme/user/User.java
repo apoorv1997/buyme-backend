@@ -12,7 +12,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 64)
-    private String username;
+    private String name;
 
     @Column(nullable = false)
     private String passwordHash;
@@ -41,12 +41,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPasswordHash() {

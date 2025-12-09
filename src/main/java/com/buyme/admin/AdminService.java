@@ -33,7 +33,7 @@ public class AdminService {
         this.auditLogRepository = auditLogRepository;
     }
 
-    public User createCustomerRep(Long adminId, String username, String passwordHash, String email) {
+    public User createCustomerRep(Long adminId, String name, String passwordHash, String email) {
         User admin = userRepository.findById(adminId)
                 .orElseThrow(() -> new IllegalArgumentException("Admin not found"));
 
@@ -42,7 +42,7 @@ public class AdminService {
         }
 
         User rep = new User();
-        rep.setUsername(username);
+        rep.setName(name);
         rep.setPasswordHash(passwordHash);
         rep.setEmail(email);
         rep.setRole(Role.CUSTOMER_REP);
@@ -57,7 +57,7 @@ public class AdminService {
         log.setEntityType("User");
         log.setEntityId(rep.getId());
         log.setCreatedAt(Instant.now());
-        log.setDetails("Created customer rep " + username);
+        log.setDetails("Created customer rep " + name);
 
         auditLogRepository.save(log);
 

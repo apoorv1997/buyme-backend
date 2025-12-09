@@ -103,7 +103,7 @@ public class BiddingService {
                 saved.getId(),
                 auction.getId(),
                 bidder.getId(),
-                bidder.getUsername(),
+                bidder.getName(),
                 saved.getAmount(),
                 saved.getMaxAutoBidAmount(),
                 saved.isWinningAtPlacement()
@@ -157,7 +157,7 @@ public class BiddingService {
                 b.getId(),
                 b.getAuction().getId(),
                 b.getBidder().getId(),
-                b.getBidder().getUsername(),
+                b.getBidder().getName(),
                 b.getAmount(),
                 b.getMaxAutoBidAmount(),
                 b.isWinningAtPlacement()

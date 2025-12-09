@@ -260,7 +260,7 @@ public class AuctionService {
                 a.getTitle(),
                 a.getDescription(),
                 a.getSeller().getId(),
-                a.getSeller().getUsername(),
+                a.getSeller().getName(),
                 a.getCategory().getId(),
                 a.getCategory().getName(),
                 a.getStartPrice(),

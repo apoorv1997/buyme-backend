@@ -25,7 +25,7 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        if (userRepository.existsByUsername(request.username())) {
+        if (userRepository.existsByName(request.name())) {
             throw new IllegalArgumentException("Username already exists");
         }
         if (userRepository.existsByEmail(request.email())) {
@@ -33,7 +33,7 @@ public class AuthService {
         }
 
         User user = new User();
-        user.setUsername(request.username());
+        user.setName(request.name());
         user.setPasswordHash(passwordService.hash(request.password()));
         user.setEmail(request.email());
         user.setRole(Role.END_USER);
@@ -43,19 +43,19 @@ public class AuthService {
         userRepository.save(user);
 
         String token = tokenService.generateToken(user.getId(), user.getRole().name());
-        return new AuthResponse(user.getId(), user.getUsername(), user.getRole().name(), token);
+        return new AuthResponse(user.getId(), user.getName(), user.getRole().name(), token);
     }
 
     public AuthResponse login(LoginRequest request) {
-        User user = userRepository.findByUsername(request.username())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
+        User user = userRepository.findByEmail(request.email())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password"));
 
         if (!passwordService.matches(request.password(), user.getPasswordHash())) {
-            throw new IllegalArgumentException("Invalid username or password");
+            throw new IllegalArgumentException("Invalid email or password");
         }
 
         String token = tokenService.generateToken(user.getId(), user.getRole().name());
-        return new AuthResponse(user.getId(), user.getUsername(), user.getRole().name(), token);
+        return new AuthResponse(user.getId(), user.getName(), user.getRole().name(), token);
     }
 
     public void logout(Long userId) {
